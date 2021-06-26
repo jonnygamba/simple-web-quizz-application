@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Question from "../src/components/question";
-import Option from "../src/components/answer";
+import Option from "../src/components/option";
 
 export default function Home() {
   const [results, setResults] = useState([]);
@@ -35,7 +35,7 @@ export default function Home() {
                 <Option
                   key={option.text}
                   id={`answer-${i}${option.option}`}
-                  group={`question-${j}`}
+                  group={`question-${i}`}
                   question={option.text}
                 />
               );

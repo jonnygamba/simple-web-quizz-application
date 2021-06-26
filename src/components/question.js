@@ -1,6 +1,6 @@
 import React from "react";
 
-const question = ({ question, children }) => {
+const Question = ({ question, children }) => {
   return (
     <fieldset>
       <legend>{question}</legend>
@@ -9,4 +9,4 @@ const question = ({ question, children }) => {
   );
 };
 
-export default question;
+export default Question;

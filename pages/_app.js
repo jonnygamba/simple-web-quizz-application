@@ -6,19 +6,19 @@ const MainContext = createContext();
 function MyApp({ Component, pageProps }) {
   const [answers, setAnswers] = useState([]);
   const [numberOfQuestions, setNumberOfQuestions] = useState();
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const value = {
     registerResponse(id, val) {
       setAnswers([...answers, { [id]: val }]);
     },
-    answers,
-    setNumberOfQuestions,
     canSubmit() {
       return numberOfQuestions === answers.length;
     },
-    submit() {
-      alert(JSON.stringify(answers));
-    },
+    answers,
+    setNumberOfQuestions,
+    setCurrentQuestion,
+    currentQuestion,
   };
 
   return (

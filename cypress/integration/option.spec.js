@@ -1,6 +1,6 @@
 describe("Every question should be valid", () => {
   beforeEach(() => {
-    cy.visit("/");
+    cy.visit("/the-quiz");
   });
   it("tests that every question has 4 radios", () => {
     cy.get("fieldset").each(($el, index) => {

@@ -1,22 +1,77 @@
-import faker from "faker";
+export default function Questions(req, res) {
+  res.send(JSON.stringify(getQuestions()));
+}
 
-export default function questions(req, res) {
-  const result = Array.from(
+function getQuestions(n) {
+  return [
     {
-      length: faker.datatype.number(9) + 1,
+      id: 1,
+      text:
+        "What kind of test would you implement for verifying an email address validation function?",
+      options: [
+        {
+          option: "A",
+          text: "Integration test",
+        },
+        {
+          option: "B",
+          text: "Unit test",
+        },
+        {
+          option: "C",
+          text: "End to end",
+        },
+        {
+          option: "D",
+          text: "Manual test",
+        },
+      ],
     },
-    () => {
-      return {
-        text: faker.lorem.words(6),
-        options: [
-          { text: faker.lorem.words(3), option: "A" },
-          { text: faker.lorem.words(3), option: "B" },
-          { text: faker.lorem.words(3), option: "C" },
-          { text: faker.lorem.words(3), option: "D" },
-        ],
-      };
-    }
-  );
-
-  res.send(JSON.stringify(result));
+    {
+      id: 2,
+      text:
+        "What performance optimization strategy you will NOT apply for DB read-intence applications?",
+      options: [
+        {
+          option: "A",
+          text: "Horizontal scaling",
+        },
+        {
+          option: "B",
+          text: "Vertical scaling",
+        },
+        {
+          option: "C",
+          text: "Queues",
+        },
+        {
+          option: "D",
+          text: "Caching",
+        },
+      ],
+    },
+    {
+      id: 3,
+      text:
+        "You want to implement communication to a variety of courier APIs on your website, they all offer similar functionality but APIs are different. What pattern would you follow in this case?",
+      options: [
+        {
+          option: "A",
+          text: "Singleton",
+        },
+        {
+          option: "B",
+          text: "MVC",
+        },
+        {
+          option: "C",
+          text: "Strategy",
+        },
+        {
+          option: "D",
+          text: "CQRS",
+        },
+      ],
+    },
+  ];
 }

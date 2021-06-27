@@ -12,7 +12,7 @@ describe("Quizz", () => {
   });
   it("should disable the submit button in the first question", () => {
     cy.get("fieldset").first().find("[type=radio]").first().check();
-    cy.get("input[type=submit]").should("be.disabled");
+    cy.get("input[type=submit]").should("not.exist");
   });
   it("should be able to navigate to next question if answer provided for current one", () => {
     cy.get("fieldset").first().find("[type=radio]").first().check();

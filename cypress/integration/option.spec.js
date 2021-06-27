@@ -7,22 +7,19 @@ describe("Every question should be valid", () => {
       cy.wrap($el).find("input[type=radio]").should("have.length", 4);
     });
   });
-  it('tests that every question has the title "question + {n}"', () => {
+  it('tests that every question has the title "Question + {n}"', () => {
     cy.get("fieldset").each(($el, index) => {
       cy.wrap($el)
         .find("legend")
         .should("have.length", 1)
-        .and("text", `question ${index + 1}`);
+        .and("text", `Question ${index + 1}`);
     });
   });
   it("tests that every question has a valid question", () => {
-    cy.get("fieldset").each(($el) => {
-      cy.wrap($el)
-        .get("fieldset")
-        .first()
-        .invoke("text")
-        .its("length")
-        .should("be.gt", 5);
-    });
+    cy.get("fieldset")
+      .get("fieldset")
+      .invoke("text")
+      .its("length")
+      .should("be.gt", 5);
   });
 });

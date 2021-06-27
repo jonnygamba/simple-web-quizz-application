@@ -1,7 +1,9 @@
 export default async function response(req, res) {
-  const result = JSON.parse(req.body).reduce(
-    (acc, answer, index) => {
-      if (JSON.stringify(answer) === JSON.stringify(answers[index])) {
+  const body = JSON.parse(req.body);
+
+  const result = Object.keys(body).reduce(
+    (acc, key, index) => {
+      if (JSON.stringify(body[key]) === JSON.stringify(answers[key])) {
         return { ...acc, ok: acc.ok + 1 };
       } else {
         return { ...acc, notOk: acc.notOk + 1 };
@@ -13,4 +15,4 @@ export default async function response(req, res) {
   return res.send(JSON.stringify(result));
 }
 
-var answers = [{ 1: "A" }, { 2: "A" }, { 3: "A" }];
+var answers = { 1: "A", 2: "A", 3: "A" };

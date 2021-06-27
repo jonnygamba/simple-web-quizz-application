@@ -1,18 +1,28 @@
-import React, { useState } from "react";
-import { useMainContext } from "../../pages/_app";
+import React, { useEffect, useState } from "react";
+import { useGetStoredAnswer, useMainContext } from "../../pages/_app";
 
 const Question = ({ question, children, index, goToNextQuestion }) => {
   const [answer, setAnswer] = useState();
-  const { registerResponse } = useMainContext();
+  const { registerResponse, numberOfQuestions } = useMainContext();
+  const stored = useGetStoredAnswer(question.id);
+
+  useEffect(() => {
+    if (stored) {
+      setAnswer(stored);
+    }
+  }, [stored]);
 
   function select(val) {
     registerResponse(question.id, val);
-    setAnswer(val);
   }
 
   function onClick(e) {
     e.preventDefault();
     goToNextQuestion();
+  }
+
+  function isChecked(option) {
+    return stored === option;
   }
 
   return (
@@ -23,11 +33,15 @@ const Question = ({ question, children, index, goToNextQuestion }) => {
         return React.cloneElement(child, {
           ...child.props,
           registerResponse: select,
+          questionId: question.id,
+          isChecked,
         });
       })}
-      <button onClick={onClick} disabled={!answer}>
-        Next
-      </button>
+      {numberOfQuestions > question.id && (
+        <button onClick={onClick} disabled={!answer}>
+          Next
+        </button>
+      )}
     </fieldset>
   );
 };

@@ -82,9 +82,8 @@ export default function Quiz() {
                   <Option
                     key={option.option}
                     id={`answer-${i}${option.option}`}
-                    group={`question-${i}`}
                     option={option.option}
-                    question={option.text}
+                    text={option.text}
                   />
                 );
               })}

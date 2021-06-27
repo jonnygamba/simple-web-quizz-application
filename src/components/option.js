@@ -1,16 +1,22 @@
-import React from "react";
-
-const Option = ({ group, question, id, registerResponse, option }) => {
+const Option = ({
+  isChecked,
+  questionId,
+  text,
+  id,
+  registerResponse,
+  option,
+}) => {
   return (
     <label>
       <input
         type="radio"
         id={id}
-        name={group}
+        name={`question-${questionId}`}
         value={option}
+        checked={isChecked(option)}
         onChange={() => registerResponse(option)}
       />
-      {question}
+      {text}
     </label>
   );
 };

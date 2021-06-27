@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMainContext } from "../../pages/_app";
 
-const Question = ({ question, children, index }) => {
+const Question = ({ question, children, index, goToNextQuestion }) => {
+  const [answer, setAnswer] = useState();
   const { registerResponse } = useMainContext();
 
   function select(val) {
     registerResponse(question.id, val);
+    setAnswer(val);
+  }
+
+  function onClick(e) {
+    e.preventDefault();
+    goToNextQuestion();
   }
 
   return (
@@ -18,6 +25,9 @@ const Question = ({ question, children, index }) => {
           registerResponse: select,
         });
       })}
+      <button onClick={onClick} disabled={!answer}>
+        Next
+      </button>
     </fieldset>
   );
 };

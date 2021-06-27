@@ -26,9 +26,11 @@ const Question = ({ question, children, index, goToNextQuestion }) => {
   }
 
   return (
-    <fieldset>
-      <legend>{`question ${index + 1}`}</legend>
-      <p>{question.text}</p>
+    <fieldset className="flex flex-col p-12 w-1/2 m-auto">
+      <legend className="pt-5 text-2xl font-bold underline pt-14 align-self-start justify-self-start">{`Question ${
+        index + 1
+      }`}</legend>
+      <p className="mb-5 text-xl">{question.text}</p>
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
           ...child.props,
@@ -38,7 +40,11 @@ const Question = ({ question, children, index, goToNextQuestion }) => {
         });
       })}
       {numberOfQuestions > question.id && (
-        <button onClick={onClick} disabled={!answer}>
+        <button
+          onClick={onClick}
+          disabled={!answer}
+          className="self-center px-2 py-1 mt-5 font-bold text-white rounded bg-dark-accent disabled:bg-gray-400"
+        >
           Next
         </button>
       )}

@@ -14,6 +14,7 @@ export default function Quiz() {
     setCurrentQuestion,
     canSubmit,
     answers,
+    numberOfQuestions,
     currentQuestion,
   } = useMainContext();
 
@@ -64,34 +65,47 @@ export default function Quiz() {
   }
 
   return (
-    <form onSubmit={send}>
-      {results.map((question, i) => {
-        return (
-          <div
-            key={question.id}
-            style={{ display: currentQuestion === i ? "block" : "none" }}
-          >
-            <Question
+    <main>
+      <form
+        onSubmit={send}
+        className="flex flex-col min-h-screen bg-dark-shade text-light-shade"
+      >
+        {results.map((question, i) => {
+          return (
+            <div
+              className="min-h-full"
               key={question.id}
-              index={i}
-              question={question}
-              goToNextQuestion={goToNextQuestion}
+              style={{ display: currentQuestion === i ? "block" : "none" }}
             >
-              {question.options.map((option, j) => {
-                return (
-                  <Option
-                    key={option.option}
-                    id={`answer-${i}${option.option}`}
-                    option={option.option}
-                    text={option.text}
-                  />
-                );
-              })}
-            </Question>
-          </div>
-        );
-      })}
-      <input type="submit" value="Send" disabled={!canSubmit()} />
-    </form>
+              <Question
+                key={question.id}
+                index={i}
+                question={question}
+                goToNextQuestion={goToNextQuestion}
+              >
+                {question.options.map((option, j) => {
+                  return (
+                    <Option
+                      key={option.option}
+                      id={`answer-${i}${option.option}`}
+                      option={option.option}
+                      text={option.text}
+                    />
+                  );
+                })}
+              </Question>
+            </div>
+          );
+        })}
+        {numberOfQuestions === currentQuestion + 1 && (
+          <input
+            type="submit"
+            value="Send"
+            disabled={!canSubmit()}
+            className="mx-auto self-center px-2 py-1 mt-5 font-bold text-white rounded bg-success disabled:bg-gray-400"
+          />
+        )}
+      </form>
+    </main>
   );
 }

@@ -10,7 +10,7 @@ describe("Quizz", () => {
       .find("[type=radio]:checked")
       .should("have.length", 1);
   });
-  it("should disable the submit button in the first question", () => {
+  it("must hide the submit button in the first question", () => {
     cy.get("fieldset").first().find("[type=radio]").first().check();
     cy.get("input[type=submit]").should("not.exist");
   });
@@ -18,12 +18,5 @@ describe("Quizz", () => {
     cy.get("fieldset").first().find("[type=radio]").first().check();
     cy.get("fieldset").find("button").first().click();
     cy.url().should("eq", "http://localhost:3000/the-quiz?q=1");
-  });
-
-  it.skip("should be able to submit when all answers are filled", () => {
-    cy.get("fieldset").first().find("[type=radio]").first().check();
-
-    cy.get("input[type=submit]").click();
-    cy.url().should("eq", "http://localhost:3000/result?ok=3&notOk=0");
   });
 });

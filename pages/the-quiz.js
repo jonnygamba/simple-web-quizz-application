@@ -1,21 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Question from "../src/components/question";
 import Option from "../src/components/option";
 import { useMainContext } from "./_app";
+import { Loading } from "../src/icons";
 
 export default function Quiz() {
   const router = useRouter();
-  const [results, setResults] = useState([]);
-  const [error, setError] = useState();
   const { query } = useRouter();
   const {
-    setNumberOfQuestions,
     setCurrentQuestion,
     canSubmit,
     answers,
+    setAnswers,
     numberOfQuestions,
     currentQuestion,
+    results,
+    error,
+    loading,
   } = useMainContext();
 
   useEffect(() => {
@@ -32,6 +34,7 @@ export default function Quiz() {
         body: JSON.stringify(answers),
       });
       const result = await response.json();
+      setAnswers({});
       router.push({ pathname: "/result", query: { ...result } });
     } catch (err) {
       console.error(err);
@@ -44,21 +47,9 @@ export default function Quiz() {
     router.replace({ pathname: "/the-quiz", query: { q: nextQuestion } });
   }
 
-  useEffect(() => {
-    const fetchResults = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/questions");
-        const result = await response.json();
-        setNumberOfQuestions(result.length);
-        setResults(result);
-      } catch (err) {
-        console.error(err);
-        setError("An error occurred");
-      }
-    };
-
-    fetchResults();
-  }, []);
+  if (loading) {
+    return <Loading />;
+  }
 
   if (error) {
     return <span>{error}</span>;
@@ -102,7 +93,7 @@ export default function Quiz() {
             type="submit"
             value="Send"
             disabled={!canSubmit()}
-            className="mx-auto self-center px-2 py-1 mt-5 font-bold text-white rounded bg-success disabled:bg-gray-400"
+            className="self-center px-2 py-1 mx-auto mt-5 font-bold text-white rounded bg-success disabled:bg-gray-400"
           />
         )}
       </form>

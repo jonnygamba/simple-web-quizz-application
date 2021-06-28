@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useGetStoredAnswer, useMainContext } from "../../pages/_app";
 
 const Question = ({ question, children, index, goToNextQuestion }) => {
@@ -6,13 +7,14 @@ const Question = ({ question, children, index, goToNextQuestion }) => {
   const { registerResponse, numberOfQuestions } = useMainContext();
   const stored = useGetStoredAnswer(question.id);
 
+  // Set answer from local storage
   useEffect(() => {
     if (stored) {
       setAnswer(stored);
     }
   }, [stored]);
 
-  function select(val) {
+  function onChange(val) {
     registerResponse(question.id, val);
   }
 
@@ -34,7 +36,7 @@ const Question = ({ question, children, index, goToNextQuestion }) => {
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
           ...child.props,
-          registerResponse: select,
+          onChange,
           questionId: question.id,
           isChecked,
         });
@@ -53,3 +55,13 @@ const Question = ({ question, children, index, goToNextQuestion }) => {
 };
 
 export default Question;
+
+Question.propTypes = {
+  question: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  index: PropTypes.number.isRequired,
+  goToNextQuestion: PropTypes.func.isRequired,
+};

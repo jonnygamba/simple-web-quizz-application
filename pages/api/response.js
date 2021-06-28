@@ -15,4 +15,15 @@ export default async function response(req, res) {
   return res.send(JSON.stringify(result));
 }
 
-var answers = { 1: "A", 2: "A", 3: "A" };
+var answers = {
+  1: "B",
+  2: "C",
+  3: "C",
+  4: "B",
+  5: "C",
+  6: "C",
+  7: "B",
+  8: "B",
+  9: "A",
+  10: "A",
+};

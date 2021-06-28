@@ -35,3 +35,11 @@ export function X() {
     </svg>
   );
 }
+
+export function Loading() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-dark-shade">
+      <div className="w-32 h-32 border-t-2 border-b-2 border-main-brand rounded-full animate-spin"></div>
+    </div>
+  );
+}

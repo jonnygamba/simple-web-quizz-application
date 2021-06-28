@@ -1,13 +1,13 @@
-describe("Every question should be valid", () => {
+describe("Question", () => {
   beforeEach(() => {
     cy.visit("/the-quiz");
   });
-  it("tests that every question has 4 radios", () => {
+  it("virifies that every question has 4 radios", () => {
     cy.get("fieldset").each(($el, index) => {
       cy.wrap($el).find("input[type=radio]").should("have.length", 4);
     });
   });
-  it('tests that every question has the title "Question + {n}"', () => {
+  it('verifies that every question has the title "Question + {n}"', () => {
     cy.get("fieldset").each(($el, index) => {
       cy.wrap($el)
         .find("legend")
@@ -15,7 +15,7 @@ describe("Every question should be valid", () => {
         .and("text", `Question ${index + 1}`);
     });
   });
-  it("tests that every question has a valid question", () => {
+  it("tests that every question has a minimum length", () => {
     cy.get("fieldset")
       .get("fieldset")
       .invoke("text")

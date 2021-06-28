@@ -1,4 +1,5 @@
 import { useState, useContext, createContext } from "react";
+import useFetchQuestions from "../src/hooks/fetch-questions";
 import useLocalStorage from "../src/hooks/localStorage";
 import "../styles/globals.css";
 
@@ -6,8 +7,10 @@ const MainContext = createContext();
 
 function MyApp({ Component, pageProps }) {
   const [answers, setAnswers] = useLocalStorage("answers", {});
-  const [numberOfQuestions, setNumberOfQuestions] = useState();
+  const { results, error, loading } = useFetchQuestions();
   const [currentQuestion, setCurrentQuestion] = useState(0);
+
+  const numberOfQuestions = results.length;
 
   const value = {
     registerResponse(id, val) {
@@ -17,10 +20,13 @@ function MyApp({ Component, pageProps }) {
       return numberOfQuestions === Object.keys(answers).length;
     },
     answers,
-    setNumberOfQuestions,
+    setAnswers,
     setCurrentQuestion,
     currentQuestion,
     numberOfQuestions,
+    results,
+    error,
+    loading,
   };
 
   return (

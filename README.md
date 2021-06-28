@@ -1,3 +1,5 @@
+**Live site:** https://simple-web-quizz-application.vercel.app/
+
 ## Instructions
 * yarn install
 * yarn dev

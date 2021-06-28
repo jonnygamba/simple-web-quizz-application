@@ -1,11 +1,6 @@
-const Option = ({
-  isChecked,
-  questionId,
-  text,
-  id,
-  registerResponse,
-  option,
-}) => {
+import PropTypes from "prop-types";
+
+const Option = ({ isChecked, questionId, text, id, onChange, option }) => {
   return (
     <label>
       <input
@@ -15,7 +10,7 @@ const Option = ({
         name={`question-${questionId}`}
         value={option}
         checked={isChecked(option)}
-        onChange={() => registerResponse(option)}
+        onChange={() => onChange(option)}
       />
       {text}
     </label>
@@ -23,3 +18,18 @@ const Option = ({
 };
 
 export default Option;
+
+Option.propTypes = {
+  isChecked: PropTypes.func,
+  questionId: PropTypes.number,
+  text: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  option: PropTypes.string.isRequired,
+};
+
+Option.defaultProps = {
+  isChecked: () => false,
+  questionId: 0,
+  onChange: () => {},
+};
